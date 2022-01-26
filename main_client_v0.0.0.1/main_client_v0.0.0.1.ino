@@ -36,15 +36,15 @@ void setup() {
 
   bool switches[12];
   
-  for(i1 = 0; i1 <= 12; i1++)
-    switches[i1] = false;
+  for(int i = 0; i < 12; i++)
+    switches[i] = false;
   
   
   int pot[6];
   int pot_alt[6];
   
-  for(i2 = 0; i2 <= 12; i2++)
-    pot[i2] = 0;
+  for(int i = 0; i < 12; i++)
+    pot[i] = 0;
   
 }
 
@@ -126,7 +126,9 @@ void loop() {
   
   
   // Potis auslesen
-  pot_alt = pot;
+  for(int i = 0; i < 6; i++){
+    pot_alt[i] = pot[i];
+  }
   
   pot[0] = analogRead(A0);
   pot[1] = analogRead(A1);
