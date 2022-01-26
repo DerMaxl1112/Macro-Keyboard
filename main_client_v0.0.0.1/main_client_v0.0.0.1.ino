@@ -24,13 +24,35 @@ void setup() {
   pinMode(pot_out_2, OUTPUT);
   pinMode(pot_out_3, OUTPUT);
   pinMode(pot_out_4, OUTPUT);
+  
+  
+  // Poti Stromversorgung an
+  digitalWrite(pot_out_1, HIGH);
+  digitalWrite(pot_out_2, HIGH);
+  digitalWrite(pot_out_3, HIGH);
+  digitalWrite(pot_out_4, HIGH);
+  
+  
 
   bool switches[12];
+  
+  for(i1 = 0; i1 <= 12; i1++)
+    switches[i1] = false;
+  
+  
+  int pot[6];
+  int pot_alt[6];
+  
+  for(i2 = 0; i2 <= 12; i2++)
+    pot[i2] = 0;
+  
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-
+  
+  
+  // Tasten auslesen
   digitalWrite(row_1, HIGH);
 
   if(column_1 == HIGH)
@@ -101,4 +123,27 @@ void loop() {
   else
     switches[12] = false;
   digitalWrite(row_3, LOW);
+  
+  
+  // Potis auslesen
+  pot_alt = pot;
+  
+  pot[0] = analogRead(A0);
+  pot[1] = analogRead(A1);
+  pot[2] = analogRead(A2);
+  pot[3] = analogRead(A3);
+  
+  pot[4] = analogRead(A6);
+  pot[5] = analogRead(A7);
+  
+  //if((pot_alt-pot)/pot_alt >= 0.02) {
+    // übertragen an pc: pot
+  //}
+  
+  // übertragen an pc: pot
+  // übertragen an pc: switches
+  
+  serial.println(switches)
+  serial.println(pot)
+  
 }
