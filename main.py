@@ -2,8 +2,8 @@ import serial
 
 
 PORT = open('safe/PORT.txt', 'r')
-    for line in PORT:
-        Port = line.split('\n')[0]
+for line in PORT:
+    Port = line.split('\n')[0]
 
 #info auf https://maker.pro/pic/tutorial/introduction-to-python-serial-ports
 
@@ -22,4 +22,4 @@ while(1):
         serialString = serialPort.readline()
 
         # Print the contents of the serial data
-        print(serialString.decode('Ascii'))
+        print(serialString)

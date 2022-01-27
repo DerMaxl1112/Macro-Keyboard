@@ -164,7 +164,6 @@ void loop() {
     Serial.print(switches[i]);
   }
   
-  Serial.println();
   
   for(int i = 0; i < 6; i++){
     Serial.print(pot[i]);
