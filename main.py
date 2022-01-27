@@ -26,3 +26,7 @@ while(1):
 
         # Print the contents of the serial data
         print(serialString)
+
+"""
+Kannst deinen Livestream wieder beenden ^^
+"""
