@@ -160,14 +160,15 @@ void loop() {
   // übertragen an pc: pot
   // übertragen an pc: switches
 
-  for(int i = 0; i < 12; i++){
-    Serial.print(switches[i]);
-  }
+  //for(int i = 0; i < 12; i++){
+    //Serial.print(switches[i]);
+  //}
   
   
-  for(int i = 0; i < 6; i++){
-    Serial.print(pot[i]);
-  }
+  //for(int i = 0; i < 6; i++){
+    //Serial.print(pot[i]);
+  //}
+  Serial.print(pot[1]);
 
   Serial.println();
   
