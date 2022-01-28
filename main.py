@@ -28,24 +28,18 @@ while(1):
         serialString = serialString.split('\n')[0]  #remove new line \n
 
         i = i+1                 # Sort Switch from Slider String
-        if i == 2:
-            switchOrSlider = serialString.split(' ')[0]
-            if switchOrSlider[0] == 's':
-                i = 0
-                serialSwitch = serialString
-                serialSwitch = serialSwitch.split('s')[1]
+        switchOrSlider = serialString.split(' ')[0]
+        if switchOrSlider[0] == 's':
+            i = 0
+            serialSwitch = serialString
+            serialSwitch = serialSwitch.split('s')[1]
 
-            else:
-                i = 1
-        print(serialSwitch)
 
-        if i == 1:
-            switchOrSlider = serialString.split(' ')[0]
-            if switchOrSlider[0] == 'p':
+            #print(serialSwitch)
 
-                serialSlider = serialString
-                serialSlider = serialSlider.split('p')[1]
+        if switchOrSlider[0] == 'p':
 
-            else:
-                i = i
-        #print(serialSlider)
+            serialSlider = serialString
+            serialSlider = serialSlider.split('p')[1]
+
+            print(serialSlider)
