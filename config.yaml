@@ -1,0 +1,33 @@
+
+# process names are case-insensitive
+# you can use 'master' to indicate the master channel, or a list of process names to create a group
+slider_mapping:
+  0: mic
+  1: spotify.exe
+  2: chrome.exe
+  3:
+    - pathofexile_x64.exe
+    - rocketleague.exe
+  4: discord.exe
+  5: atom.exe
+
+button_mapping:
+  0: q
+  1: w
+  2: e
+  3: r
+  4: t
+  5: y
+  6: u
+  7: i
+  8: o
+  9: p
+  10: a
+  11: s
+
+# recommend to leave this setting at its default value
+process_refresh_frequency: 5
+
+# settings for connecting to the arduino board
+com_port: COM3
+baud_rate: 9600
