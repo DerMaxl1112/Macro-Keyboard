@@ -22,6 +22,7 @@ from watchdog.observers import Observer
 class Switches(object):
 
     def __init__(self):
+        self._config_filename = 'config.yaml'
         self.switches_string = ''
         #Define the number of switches on the board
         self.number_of_btn = 12
@@ -29,8 +30,51 @@ class Switches(object):
         self.split_switches_string_temp = self.number_of_btn * [None]
         #Final Array to hold switch-state in Boolean form
         self.split_switches_string = self.number_of_btn * [False]
+        #Array to test for chanches
+        self.split_switches_string_old = self.number_of_btn * [False]
+        #saves witch switch changed
+        self.switch_no = None
 
-        # self._load_settings()
+        self.button_values = ''
+
+        self._load_settings()
+
+    def _load_settings(self, reload=False):
+        settings = None
+
+        try:
+            with open(self._config_filename, 'rb') as f:
+                raw_settings = f.read()
+                settings = yaml.load(raw_settings, Loader=yaml.SafeLoader)
+        except Exception as error:
+            attempt_print('Failed to {0}load config file {1}: {2}'.format('re' if reload else '',
+                                                                          self._config_filename,
+                                                                          error))
+
+            if reload:
+                return
+            else:
+                sys.exit(2)
+
+        try:
+            # self._expected_num_sliders = len(settings['slider_mapping'])
+            # self._expected_num_buttons = len(settings['button_mapping'])
+            # self._com_port = settings['com_port']
+            # self._baud_rate = settings['baud_rate']
+            # self._slider_values = [0] * self._expected_num_sliders
+            # self._settings = settings
+
+            self.number_of_btn = len(settings['button_mapping'])
+            self.button_values = settings['button_mapping']
+            for i in range(12):
+                print(self.button_values[i], i)
+
+        except Exception as error:
+            attempt_print('Failed to {0}load configuration, please ensure it matches' \
+                ' the required format. Error: {1}'.format('re' if reload else '', error))
+
+        if reload:
+            attempt_print('Reloaded configuration successfully')
 
     #Funktion to split input string into single value and cast them into `int` then to `bool`
     def build_array(self, switches_string):
@@ -42,6 +86,32 @@ class Switches(object):
         #cast the array into bools
         for i in range(self.number_of_btn):
             self.split_switches_string[i] = bool(int(self.split_switches_string_temp[i]))
+
+            #print(self.split_switches_string) # for testing purposess
+
+    def have_switch_chanched(self):
+        while 1:
+            for i in range(self.number_of_btn):
+                if self.split_switches_string_old[i] == self.split_switches_string[i]:
+                    switch_aktion(i)
+
+
+                elif self.split_switches_string_old[i] != self.split_switches_string[i]:
+                    continue
+                self.split_switches_string_old[i] = self.split_switches_string[i]
+
+
+    def switch_aktion(self, switch_no):
+        self.switch_no = switch_no
+
+
+
+
+
+
+
+
+# Audio and serial interface section----------------------------------------------------------------------------------------------------------------------------------------------
 
 class Deej(object):
 
@@ -61,6 +131,7 @@ class Deej(object):
 
         self._sessions = None
         self._master_session = None
+        self._microphon_session = None
 
         self._devices = None
 
@@ -123,7 +194,7 @@ class Deej(object):
                 self.serialSwitch = self.serialSwitch.split('s')[1]
 
                 if len(self.serialSwitch.split('|')) != self._expected_num_buttons:
-                    attempt_print('Uh oh - mismatch between number of sliders and config')
+                    attempt_print('Uh oh - mismatch between number of buttons and config')
                     continue
 
                 else:

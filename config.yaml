@@ -1,8 +1,8 @@
 
 # process names are case-insensitive
-# you can use 'master' to indicate the master channel, or a list of process names to create a group
+# you can use 'master' to indicate the master channel or a list of process names to create a group
 slider_mapping:
-  0: mic
+  0: master
   1: spotify.exe
   2: chrome.exe
   3:
@@ -29,5 +29,5 @@ button_mapping:
 process_refresh_frequency: 5
 
 # settings for connecting to the arduino board
-com_port: COM3
-baud_rate: 9600
+com_port: COM3          # Set to port to the port the keyboard is connected to
+baud_rate: 9600         # 9600 is set as default by arduino. Chanching not advised!

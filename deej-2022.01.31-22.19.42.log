@@ -1,0 +1,12 @@
+Unfortunately, deej has crashed. This really shouldn't happen!
+If you've just encountered this, please contact @omriharel and attach this error log.
+You can also join the deej Discord server at https://discord.gg/nf88NJu.
+Exception occurred: 'Switches' object has no attribute 'button_values'
+Traceback: Traceback (most recent call last):
+  File "D:\GitHub\Macro-Keyboard\main.py", line 431, in main
+    deej.start()
+  File "D:\GitHub\Macro-Keyboard\main.py", line 200, in start
+    sw = Switches()
+  File "D:\GitHub\Macro-Keyboard\main.py", line 37, in __init__
+    self.button_values
+AttributeError: 'Switches' object has no attribute 'button_values'
