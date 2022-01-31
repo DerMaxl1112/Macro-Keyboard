@@ -34,11 +34,14 @@ class Switches(object):
         self.split_switches_string_old = self.number_of_btn * [False]
         #saves witch switch changed
         self.switch_no = None
-
+        #readout from config button_mapping
         self.button_values = ''
 
         self._load_settings()
 
+
+
+    #reads config for button_values
     def _load_settings(self, reload=False):
         settings = None
 
@@ -47,9 +50,7 @@ class Switches(object):
                 raw_settings = f.read()
                 settings = yaml.load(raw_settings, Loader=yaml.SafeLoader)
         except Exception as error:
-            attempt_print('Failed to {0}load config file {1}: {2}'.format('re' if reload else '',
-                                                                          self._config_filename,
-                                                                          error))
+            attempt_print('Failed to {0}load config file {1}: {2}'.format('re' if reload else '', self._config_filename, error))
 
             if reload:
                 return
@@ -57,17 +58,9 @@ class Switches(object):
                 sys.exit(2)
 
         try:
-            # self._expected_num_sliders = len(settings['slider_mapping'])
-            # self._expected_num_buttons = len(settings['button_mapping'])
-            # self._com_port = settings['com_port']
-            # self._baud_rate = settings['baud_rate']
-            # self._slider_values = [0] * self._expected_num_sliders
-            # self._settings = settings
-
             self.number_of_btn = len(settings['button_mapping'])
             self.button_values = settings['button_mapping']
-            for i in range(12):
-                print(self.button_values[i], i)
+
 
         except Exception as error:
             attempt_print('Failed to {0}load configuration, please ensure it matches' \
@@ -75,6 +68,8 @@ class Switches(object):
 
         if reload:
             attempt_print('Reloaded configuration successfully')
+
+
 
     #Funktion to split input string into single value and cast them into `int` then to `bool`
     def build_array(self, switches_string):
@@ -87,7 +82,7 @@ class Switches(object):
         for i in range(self.number_of_btn):
             self.split_switches_string[i] = bool(int(self.split_switches_string_temp[i]))
 
-            #print(self.split_switches_string) # for testing purposess
+
 
     def have_switch_chanched(self):
         while 1:
@@ -103,6 +98,8 @@ class Switches(object):
 
     def switch_aktion(self, switch_no):
         self.switch_no = switch_no
+
+        #do switch aktion
 
 
 
@@ -238,9 +235,7 @@ class Deej(object):
                 raw_settings = f.read()
                 settings = yaml.load(raw_settings, Loader=yaml.SafeLoader)
         except Exception as error:
-            attempt_print('Failed to {0}load config file {1}: {2}'.format('re' if reload else '',
-                                                                          self._config_filename,
-                                                                          error))
+            attempt_print('Failed to {0}load config file {1}: {2}'.format('re' if reload else '', self._config_filename, error))
 
             if reload:
                 return
