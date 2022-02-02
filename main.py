@@ -87,11 +87,11 @@ class Switches(object):
     def have_switch_chanched(self):
         while 1:
             for i in range(self.number_of_btn):
-                if self.split_switches_string_old[i] == self.split_switches_string[i]:
+                if self.split_switches_string_old[i] != self.split_switches_string[i]:
                     switch_aktion(i)
 
 
-                elif self.split_switches_string_old[i] != self.split_switches_string[i]:
+                elif self.split_switches_string_old[i] == self.split_switches_string[i]:
                     continue
                 self.split_switches_string_old[i] = self.split_switches_string[i]
 
