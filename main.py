@@ -25,7 +25,7 @@ class Switches(object):
         self._config_filename = 'config.yaml'
         self.switches_string = ''
         #Define the number of switches on the board
-        self.number_of_btn = 12
+        self.number_of_btn = None
         #Temporary Array To hold Strings from Switch-Array
         self.split_switches_string_temp = self.number_of_btn * [None]
         #Final Array to hold switch-state in Boolean form
