@@ -26,6 +26,12 @@ class Switches(object):
         self.switches_string = ''
         #Define the number of switches on the board
         self.number_of_btn = None
+        #readout from config button_mapping
+        self.button_values = None
+        #load settings from config.yaml
+        #needed for number_of_buttons
+        self._load_settings()
+
         #Temporary Array To hold Strings from Switch-Array
         self.split_switches_string_temp = self.number_of_btn * [None]
         #Final Array to hold switch-state in Boolean form
@@ -34,12 +40,8 @@ class Switches(object):
         self.split_switches_string_old = self.number_of_btn * [False]
         #saves witch switch changed
         self.switch_no = None
-        #readout from config button_mapping
-        self.button_values = None
-
+        #saves what to do
         self.switch_action = None
-
-        self._load_settings()
 
 
 
@@ -84,18 +86,24 @@ class Switches(object):
         for i in range(self.number_of_btn):
             self.split_switches_string[i] = bool(int(self.split_switches_string_temp[i]))
 
+        #print array for tests
+        #print(self.split_switches_string)
 
 
+    #check for a changed switch value
     def have_switch_chanched(self):
         while 1:
             for i in range(self.number_of_btn):
+                #if a switch state chanched
                 if self.split_switches_string_old[i] != self.split_switches_string[i]:
                     switch_aktions(i)
+                    #set old array for next time
+                    self.split_switches_string_old[i] = self.split_switches_string[i]
+                    continue
 
-
+                #if not
                 elif self.split_switches_string_old[i] == self.split_switches_string[i]:
                     continue
-                self.split_switches_string_old[i] = self.split_switches_string[i]
 
 
     def switch_actions(self, switch_no):
@@ -438,7 +446,8 @@ def main():
         with open(filename, 'w') as f:
             import traceback
             f.write('Unfortunately, deej has crashed. This really shouldn\'t happen!\n')
-            f.write('If you\'ve just encountered this, please contact @omriharel and attach this error log.\n')
+            f.write('If you\'ve just encountered this, please contact @DerMaxl1112\n')
+            f.write('or maximilian-hug@gmx.de and attach this error log.\n')
             f.write('You can also join the deej Discord server at https://discord.gg/nf88NJu.\n')
             f.write('Exception occurred: {0}\nTraceback: {1}'.format(error, traceback.format_exc()))
 
