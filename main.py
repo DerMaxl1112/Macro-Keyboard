@@ -35,7 +35,9 @@ class Switches(object):
         #saves witch switch changed
         self.switch_no = None
         #readout from config button_mapping
-        self.button_values = ''
+        self.button_values = None
+
+        self.switch_action = None
 
         self._load_settings()
 
@@ -88,7 +90,7 @@ class Switches(object):
         while 1:
             for i in range(self.number_of_btn):
                 if self.split_switches_string_old[i] == self.split_switches_string[i]:
-                    switch_aktion(i)
+                    switch_aktions(i)
 
 
                 elif self.split_switches_string_old[i] != self.split_switches_string[i]:
@@ -96,8 +98,9 @@ class Switches(object):
                 self.split_switches_string_old[i] = self.split_switches_string[i]
 
 
-    def switch_aktion(self, switch_no):
+    def switch_actions(self, switch_no):
         self.switch_no = switch_no
+        self.switch_action = self.button_values[switch_no]
 
         #do switch aktion
 

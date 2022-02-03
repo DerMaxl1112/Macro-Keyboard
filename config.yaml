@@ -1,4 +1,3 @@
-
 # process names are case-insensitive
 # you can use 'master' to indicate the master channel or a list of process names to create a group
 slider_mapping:
@@ -16,7 +15,9 @@ button_mapping:
   1: w
   2: e
   3: r
-  4: t
+  4:
+    - w
+    - t
   5: y
   6: u
   7: i
