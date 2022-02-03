@@ -25,7 +25,7 @@ class Switches(object):
         self._config_filename = 'config.yaml'
         self.switches_string = ''
         #Define the number of switches on the board
-        self.number_of_btn = 12
+        self.number_of_btn = None
         #Temporary Array To hold Strings from Switch-Array
         self.split_switches_string_temp = self.number_of_btn * [None]
         #Final Array to hold switch-state in Boolean form
@@ -89,11 +89,11 @@ class Switches(object):
     def have_switch_chanched(self):
         while 1:
             for i in range(self.number_of_btn):
-                if self.split_switches_string_old[i] == self.split_switches_string[i]:
+                if self.split_switches_string_old[i] != self.split_switches_string[i]:
                     switch_aktions(i)
 
 
-                elif self.split_switches_string_old[i] != self.split_switches_string[i]:
+                elif self.split_switches_string_old[i] == self.split_switches_string[i]:
                     continue
                 self.split_switches_string_old[i] = self.split_switches_string[i]
 
