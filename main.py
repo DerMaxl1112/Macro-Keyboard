@@ -7,10 +7,13 @@ import datetime
 import os
 import subprocess
 import psutil
+import tempfile
 
 import infi.systray
 import serial
 import yaml
+
+import keyboard #https://pypi.org/project/keyboard/
 
 from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 from ctypes import POINTER, pointer, cast
@@ -108,9 +111,14 @@ class Switches(object):
 
     def switch_actions(self, switch_no):
         self.switch_no = switch_no
-        self.switch_action = self.button_values[switch_no]
+        self.switch_action = self.button_values[self.switch_no]
+
+        ", ".join(x for x in self.switch_action)
 
         #do switch aktion
+        keyboard.press_and_release(self.switch_action)
+
+        attempt_print('Key: ', self.switch_no, 'Aktion: ', self.switch_action)
 
 
 
@@ -441,7 +449,7 @@ def main():
         attempt_print('Interrupted.')
         sys.exit(130)
     except Exception as error:
-        filename = 'deej-{0}.log'.format(datetime.datetime.now().strftime('%Y.%m.%d-%H.%M.%S'))
+        filename = tempfile.gettempdir() + '\\' + 'deej-{0}.log'.format(datetime.datetime.now().strftime('%Y.%m.%d-%H.%M.%S'))
 
         with open(filename, 'w') as f:
             import traceback

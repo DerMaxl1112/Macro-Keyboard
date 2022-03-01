@@ -1,7 +1,7 @@
 # process names are case-insensitive
 # you can use 'master' to indicate the master channel or a list of process names to create a group
 slider_mapping:
-  0: discord.exe
+  0: master
   1:                            #Internet and streaming
     - chrome.exe
     - msedge.exe              #Microsoft edge
@@ -12,7 +12,7 @@ slider_mapping:
   2: whatsapp.exe
   3: rocketleague.exe
   4: spotify.exe
-  5: master
+  5: discord.exe
 
 button_mapping:
   0: q
@@ -34,5 +34,5 @@ button_mapping:
 process_refresh_frequency: 5
 
 # settings for connecting to the arduino board
-com_port: COM3          # Set to port to the port the keyboard is connected to
+com_port: COM4          # Set to port to the port the keyboard is connected to
 baud_rate: 9600         # 9600 is set as default by arduino. Chanching not advised!
