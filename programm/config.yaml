@@ -2,26 +2,27 @@
 # you can use 'master' to indicate the master channel or a list of process names to create a group
 slider_mapping:
   0: master
-  1:                            #Internet and streaming
-    - chrome.exe
-    - msedge.exe              #Microsoft edge
-    - launcher.exe            #Opera
-    - netflix.exe
-    - crunchyroll.exe
-    - twitch.exe
-  2: whatsapp.exe
-  3: rocketleague.exe
-  4: spotify.exe
-  5: discord.exe
+  1:                         #currently nothing
+  2:
+      - chrome.exe
+      - msedge.exe           #Microsoft edge
+  3: whatsapp.exe
+  4: discord.exe
+  5:
+      - spotify.exe
+      - twitchui.exe        #twitch client
+      - cr.winapp.exe       #crunchyroll
+      - netflix.exe
 
 button_mapping:
-  0: q
+  0:
+    - t
+    - g
+    - g
   1: w
   2: e
   3: r
-  4:
-    - w
-    - t
+  4: l
   5: y
   6: u
   7: i
@@ -30,7 +31,7 @@ button_mapping:
   10: a
   11: s
 
-# recommend to leave this setting at its default value
+# recommend to leave these setting at there default values
 process_refresh_frequency: 5
 
 # settings for connecting to the arduino board

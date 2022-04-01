@@ -92,21 +92,22 @@ class Switches(object):
         #print array for tests
         #print(self.split_switches_string)
 
+        self.have_switch_chanched()
+
 
     #check for a changed switch value
     def have_switch_chanched(self):
-        while 1:
-            for i in range(self.number_of_btn):
-                #if a switch state chanched
-                if self.split_switches_string_old[i] != self.split_switches_string[i]:
-                    switch_aktions(i)
-                    #set old array for next time
-                    self.split_switches_string_old[i] = self.split_switches_string[i]
-                    continue
+        for i in range(self.number_of_btn):
+            #if a switch state chanched
+            if self.split_switches_string_old[i] != self.split_switches_string[i]:
+                self.switch_actions(i)
+                #set old array for next time
+                self.split_switches_string_old[i] = self.split_switches_string[i]
+                continue
 
-                #if not
-                elif self.split_switches_string_old[i] == self.split_switches_string[i]:
-                    continue
+            #if not
+            elif self.split_switches_string_old[i] == self.split_switches_string[i]:
+                continue
 
 
     def switch_actions(self, switch_no):
@@ -116,9 +117,10 @@ class Switches(object):
         ", ".join(x for x in self.switch_action)
 
         #do switch aktion
-        keyboard.press_and_release(self.switch_action)
+        if not keyboard.is_pressed(self.switch_action):
+            keyboard.send(self.switch_action, do_press=True, do_release=False)
 
-        attempt_print('Key: ', self.switch_no, 'Aktion: ', self.switch_action)
+        print('Key:', self.switch_no+1, '  Action:', self.switch_action)
 
 
 
@@ -205,9 +207,9 @@ class Deej(object):
 
             switchOrSlider = line.split('\n')[0].split(' ')[0]
 
-            if switchOrSlider[0] == 's':
+            if switchOrSlider[0] == 'k':
                 self.serialSwitch = line
-                self.serialSwitch = self.serialSwitch.split('s')[1]
+                self.serialSwitch = self.serialSwitch.split('k')[1]
 
                 if len(self.serialSwitch.split('|')) != self._expected_num_buttons:
                     attempt_print('Uh oh - mismatch between number of buttons and config')
@@ -219,9 +221,9 @@ class Deej(object):
 
                 continue
 
-            if switchOrSlider[0] == 'p':
+            if switchOrSlider[0] == 's':
                 serialSlider = line
-                line = serialSlider.split('p')[1]
+                line = serialSlider.split('s')[1]
 
 
 
@@ -386,6 +388,11 @@ class Deej(object):
             return [('Master', self._master_session)]
 
         for process_name, process_sessions in self._sessions.items():
+            if not process_name:
+                return []
+            if not name:
+                return []
+
             if process_name.lower() == name.lower():
 
                 # if we only have one session for that process return it
@@ -464,7 +471,6 @@ def main():
     finally:
         tray.shutdown()
         attempt_print('Bye!')
-
 
 if __name__ == '__main__':
     main()

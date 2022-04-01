@@ -3,10 +3,11 @@ const int NUM_SLIDERS = 6;
 const int analogInputs[NUM_SLIDERS] = {A0, A1, A2, A3, A6, A7};
 
 int analogSliderValues[NUM_SLIDERS];
+int temp=0;
 
 // Switchconfig
 const int NUM_SWITCHES = 12;
-bool switches[NUM_SWITCHES];
+int switches[NUM_SWITCHES]={false};
 
 int column_1 = 0, column_2 = 0, column_3 = 0, column_4 = 0;
 int column_1_pin = 2, column_2_pin = 3, column_3_pin = 4, column_4_pin = 5; // Switch pincolumns
@@ -14,7 +15,8 @@ int row_1 = 12, row_2 = 11, row_3 = 10; // Switch rows
 
 int pot_out_1 = 6, pot_out_2 = 7, pot_out_3 = 8, pot_out_4 = 9; // Slider power
 
-
+bool is_pressed[NUM_SWITCHES]={false};
+bool any_pressed = false;
 
 void setup() {
   for (int i = 0; i < NUM_SLIDERS; i++) {
@@ -42,16 +44,19 @@ void setup() {
   digitalWrite(pot_out_3, HIGH);
   digitalWrite(pot_out_4, HIGH);
 
-  for(int i = 0; i < NUM_SWITCHES; i++){
-    switches[i] = false;
-  }
 
   Serial.begin(9600);
 }
 
 void loop() {
   updateSwitchValues(); // Actually send data (all the time)
-  sendSwitchValues();
+  for(int i=0; i<NUM_SWITCHES; i++){
+    temp += switches[i];
+    }
+   if(temp<=1){
+     sendSwitchValues();
+   }
+   temp = 0;
 
   updateSliderValues();
   sendSliderValues(); // Actually send data (all the time)
@@ -68,25 +73,57 @@ void updateSwitchValues() {
   column_3 = digitalRead(column_3_pin);
   column_4 = digitalRead(column_4_pin);
 
-  if(column_1 == HIGH)
+  if(column_1 == HIGH && !is_pressed[0] && any_pressed == false){
+    switches[0] = true;
+    is_pressed[0] = true;
+    any_pressed = true;
+  }
+  else{
+    switches[0] = false;
+    if(column_1 == LOW){
+      is_pressed[0] = false;
+      any_pressed = false;
+    }
+  }
+
+ if(column_2 == HIGH && !is_pressed[1] && any_pressed == false){
     switches[1] = true;
-  else
+    is_pressed[1] = true;
+    any_pressed = true;
+  }
+  else{
     switches[1] = false;
+    if(column_2 == LOW){
+      is_pressed[1] = false;
+      any_pressed = false;
+    }
+  }
 
-  if(column_2 == HIGH)
+ if(column_3 == HIGH && !is_pressed[2] && any_pressed == false){
     switches[2] = true;
-  else
+    is_pressed[2] = true;
+    any_pressed = true;
+  }
+  else{
     switches[2] = false;
+    if(column_3 == LOW){
+      is_pressed[2] = false;
+      any_pressed = false;
+    }
+  }
 
-  if(column_3 == HIGH)
+  if(column_4 == HIGH && !is_pressed[3] && any_pressed == false){
     switches[3] = true;
-  else
+    is_pressed[3] = true;
+    any_pressed = true;
+  }
+  else{
     switches[3] = false;
-
-  if(column_4 == HIGH)
-    switches[4] = true;
-  else
-    switches[4] = false;
+    if(column_4 == LOW){
+      is_pressed[3] = false;
+      any_pressed = false;
+    }
+  }
   digitalWrite(row_1, LOW);
 
 
@@ -98,25 +135,57 @@ void updateSwitchValues() {
   column_3 = digitalRead(column_3_pin);
   column_4 = digitalRead(column_4_pin);
 
-  if(column_1 == HIGH)
+  if(column_1 == HIGH && !is_pressed[4] && any_pressed == false){
+    switches[4] = true;
+    is_pressed[4] = true;
+    any_pressed = true;
+  }
+  else{
+    switches[4] = false;
+    if(column_1 == LOW){
+      is_pressed[4] = false;
+      any_pressed = false;
+    }
+  }
+
+   if(column_2 == HIGH && !is_pressed[5] && any_pressed == false){
     switches[5] = true;
-  else
+    is_pressed[5] = true;
+    any_pressed = true;
+  }
+  else{
     switches[5] = false;
+    if(column_2 == LOW){
+      is_pressed[5] = false;
+      any_pressed = false;
+    }
+  }
 
-  if(column_2 == HIGH)
+   if(column_3 == HIGH && !is_pressed[6] && any_pressed == false){
     switches[6] = true;
-  else
+    is_pressed[6] = true;
+    any_pressed = true;
+  }
+  else{
     switches[6] = false;
+    if(column_3 == LOW){
+      is_pressed[6] = false;
+      any_pressed = false;
+    }
+  }
 
-  if(column_3 == HIGH)
+   if(column_4 == HIGH && !is_pressed[7] && any_pressed == false){
     switches[7] = true;
-  else
+    is_pressed[7] = true;
+    any_pressed = true;
+  }
+  else{
     switches[7] = false;
-
-  if(column_4 == HIGH)
-    switches[8] = true;
-  else
-    switches[8] = false;
+    if(column_4 == LOW){
+      is_pressed[7] = false;
+      any_pressed = false;
+    }
+  }
   digitalWrite(row_2, LOW);
 
 
@@ -128,30 +197,62 @@ void updateSwitchValues() {
   column_3 = digitalRead(column_3_pin);
   column_4 = digitalRead(column_4_pin);
 
-  if(column_1 == HIGH)
+  if(column_1 == HIGH && !is_pressed[8] && any_pressed == false){
+    switches[8] = true;
+    is_pressed[8] = true;
+    any_pressed = true;
+  }
+  else{
+    switches[8] = false;
+    if(column_1 == LOW){
+      is_pressed[8] = false;
+      any_pressed = false;
+    }
+  }
+
+  if(column_2 == HIGH && !is_pressed[9] && any_pressed == false){
     switches[9] = true;
-  else
+    is_pressed[9] = true;
+    any_pressed = true;
+  }
+  else{
     switches[9] = false;
+    if(column_2 == LOW){
+      is_pressed[9] = false;
+      any_pressed = false;
+    }
+  }
 
-  if(column_2 == HIGH)
+  if(column_3 == HIGH && !is_pressed[10] && any_pressed == false){
     switches[10] = true;
-  else
+    is_pressed[10] = true;
+    any_pressed = true;
+  }
+  else{
     switches[10] = false;
+    if(column_3 == LOW){
+      is_pressed[10] = false;
+      any_pressed = false;
+    }
+  }
 
-  if(column_3 == HIGH)
+  if(column_4 == HIGH && !is_pressed[11] && any_pressed == false){
     switches[11] = true;
-  else
+    is_pressed[11] = true;
+    any_pressed = true;
+  }
+  else{
     switches[11] = false;
-
-  if(column_4 == HIGH)
-    switches[12] = true;
-  else
-    switches[12] = false;
+    if(column_4 == LOW){
+      is_pressed[11] = false;
+      any_pressed = false;
+    }
+  }
   digitalWrite(row_3, LOW);
 }
 
 void sendSwitchValues() {
-  String builtStringSwitch = String("s");
+  String builtStringSwitch = String("k");
 
   for (int i = 0; i < NUM_SWITCHES; i++) {
     builtStringSwitch += String((int)switches[i]);
@@ -172,7 +273,7 @@ void updateSliderValues() {
 }
 
 void sendSliderValues() {
-  String builtStringSlider = String("p");
+  String builtStringSlider = String("s");
 
   for (int i = 0; i < NUM_SLIDERS; i++) {
     builtStringSlider += String((int)analogSliderValues[i]);
