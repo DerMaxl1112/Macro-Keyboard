@@ -18,6 +18,7 @@ bool any_pressed = false;
 
 bool opend = false;
 String themp;
+int count = 0;
 
 void setup() {
   for (int i = 0; i < NUM_SLIDERS; i++) {
@@ -62,9 +63,19 @@ void loop() {
     
 
     themp = Serial.read();
-    if(themp == "99"){  //check for c
-      opend = false;
-      Serial.println("closed");
+    if(themp != "99"){  //check for c
+      
+      count ++;
+      
+      if(count >=100){
+        opend = false;
+        count = 0;
+        Serial.println("closed");
+        digitalWrite(LED_BUILTIN, LOW);
+      }
+    }
+    else{
+      count = 0;
     }
 
     
@@ -78,7 +89,7 @@ void loop() {
       Serial.println("opend");
     }
     else{
-      delay(1000);
+      delay(10000);
     }
     if(themp != "-1"){
       digitalWrite(LED_BUILTIN, HIGH);

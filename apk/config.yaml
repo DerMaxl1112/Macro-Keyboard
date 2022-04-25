@@ -34,5 +34,5 @@ button_mapping:
 process_refresh_frequency: 5
 
 # settings for connecting to the arduino board
-com_port: COM4          # Set to port to the port the keyboard is connected to
+com_port: COM3          # Set to port to the port the keyboard is connected to
 baud_rate: 9600         # 9600 is set as default by arduino. Chanching not advised!
