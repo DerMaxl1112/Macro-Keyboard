@@ -7,7 +7,9 @@ slider_mapping:
       - chrome.exe
       - msedge.exe           #Microsoft edge
   3: whatsapp.exe
-  4: discord.exe
+  4:
+      - discord.exe
+      - zoom.exe
   5:
       - spotify.exe
       - twitchui.exe        #twitch client
@@ -15,21 +17,18 @@ slider_mapping:
       - netflix.exe
 
 button_mapping:
-  0:
-    - t
-    - g
-    - g
-  1: w
-  2: e
-  3: r
-  4: l
-  5: y
-  6: u
-  7: i
-  8: o
-  9: p
-  10: a
-  11: s
+  0: F1
+  1: F2
+  2: F3
+  3: F4
+  4: F5
+  5: F6
+  6: F7
+  7: F8
+  8: F9
+  9: F10
+  10: F11
+  11: F12
 
 # recommend to leave these setting at there default values
 process_refresh_frequency: 5

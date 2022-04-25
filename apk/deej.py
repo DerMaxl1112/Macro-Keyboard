@@ -163,6 +163,10 @@ class Deej(object):
 
         self.serialSwitch = ''
 
+        self.opend = False
+        self.i = 0
+
+
     def initialize(self):
         self._refresh_sessions()
         self._watch_config_file_changes()
@@ -188,6 +192,31 @@ class Deej(object):
 
         # ensure we start clean
         ser.readline()
+
+        ser.write('o'.encode('utf-8'))
+        attempt_print('o')
+
+        while self.opend == False:
+            # read a single line from the serial stream
+            line = ser.readline()
+
+            line = line.decode('utf-8')
+
+            # empty lines are a thing i guess
+            if not line:
+                attempt_print('Empty line')
+                continue
+
+            if line == 'opend':
+                self.opend = True
+
+            i = i+1
+            if i >=100:
+                ser.write('o'.encode('utf-8'))
+                i=0
+
+            # read a single line from the serial stream
+            line = ser.readline()
 
         while not self._stopped:
 
@@ -247,6 +276,9 @@ class Deej(object):
             if self._significantly_different_values(clean_values):
                 self._slider_values = clean_values
                 self._apply_volume_changes()
+
+        while self._stopped:
+            ser.write('c'.encode('utf-8'))
 
     def _load_settings(self, reload=False):
         settings = None
@@ -419,7 +451,6 @@ class Deej(object):
     def _clean_session_volume(self, value):
         return math.floor(value * 100) / 100.0
 
-
 def setup_tray(edit_config_callback, refresh_sessions_callback, stop_callback):
     menu_options = (('Edit configuration', None, lambda _: edit_config_callback()),
                     ('Re-scan audio sessions', None, lambda _: refresh_sessions_callback()))
@@ -471,6 +502,7 @@ def main():
     finally:
         tray.shutdown()
         attempt_print('Bye!')
+
 
 if __name__ == '__main__':
     main()

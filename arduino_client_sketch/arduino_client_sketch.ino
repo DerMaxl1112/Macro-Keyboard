@@ -13,10 +13,11 @@ int column_1 = 0, column_2 = 0, column_3 = 0, column_4 = 0;
 int column_1_pin = 2, column_2_pin = 3, column_3_pin = 4, column_4_pin = 5; // Switch pincolumns
 int row_1 = 12, row_2 = 11, row_3 = 10; // Switch rows
 
-int pot_out_1 = 6, pot_out_2 = 7, pot_out_3 = 8, pot_out_4 = 9; // Slider power
-
 bool is_pressed[NUM_SWITCHES]={false};
 bool any_pressed = false;
+
+bool opend = false;
+String themp;
 
 void setup() {
   for (int i = 0; i < NUM_SLIDERS; i++) {
@@ -33,35 +34,50 @@ void setup() {
   pinMode(row_2, OUTPUT);
   pinMode(row_3, OUTPUT);
 
-  pinMode(pot_out_1, OUTPUT);
-  pinMode(pot_out_2, OUTPUT);
-  pinMode(pot_out_3, OUTPUT);
-  pinMode(pot_out_4, OUTPUT);
-
-  // set slider power high
-  digitalWrite(pot_out_1, HIGH);
-  digitalWrite(pot_out_2, HIGH);
-  digitalWrite(pot_out_3, HIGH);
-  digitalWrite(pot_out_4, HIGH);
-
-
   Serial.begin(9600);
 }
 
 void loop() {
-  updateSwitchValues(); // Actually send data (all the time)
-  for(int i=0; i<NUM_SWITCHES; i++){
-    temp += switches[i];
-    }
-   if(temp<=1){
-     sendSwitchValues();
-   }
-   temp = 0;
 
-  updateSliderValues();
-  sendSliderValues(); // Actually send data (all the time)
-  // printSliderValues(); // For debug
-  delay(10);
+  if(opend == true){
+
+
+    //Switches
+    updateSwitchValues();
+
+    for(int i=0; i<NUM_SWITCHES; i++){
+      temp += switches[i];
+      }
+     if(temp<=1){
+       sendSwitchValues(); // Actually send data (all the time)
+     }
+     temp = 0;
+  
+
+    //Sliders
+    updateSliderValues();
+    sendSliderValues(); // Actually send data (all the time)
+    
+
+    themp = Serial.read();
+    if(themp == "99"){  //check for c
+      opend = false;
+      Serial.println("closed");
+    }
+
+    
+    delay(10);
+  }
+  else{
+  themp = Serial.read();
+    if(themp == "111"){  //check for o
+      opend = true;
+      Serial.println("opend");
+    }
+    else{
+      delay(10000);
+    }
+  }
 }
 
 void updateSwitchValues() {
