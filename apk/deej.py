@@ -188,35 +188,30 @@ class Deej(object):
         ser = serial.Serial()
         ser.baudrate = self._baud_rate
         ser.port = self._com_port
+        ser.write_timeout = 0
         ser.open()
 
-        # ensure we start clean
-        ser.readline()
-
-        ser.write('o'.encode('utf-8'))
-        attempt_print('o')
-
         while self.opend == False:
+
+            ser.write(b'o')
+
+
             # read a single line from the serial stream
             line = ser.readline()
 
             line = line.decode('utf-8')
+            attempt_print(line)
 
             # empty lines are a thing i guess
             if not line:
                 attempt_print('Empty line')
                 continue
 
-            if line == 'opend':
+            if "opend" in line:
                 self.opend = True
 
-            i = i+1
-            if i >=100:
-                ser.write('o'.encode('utf-8'))
-                i=0
-
-            # read a single line from the serial stream
-            line = ser.readline()
+        # read a single line from the serial stream
+        line = ser.readline()
 
         while not self._stopped:
 
@@ -277,8 +272,8 @@ class Deej(object):
                 self._slider_values = clean_values
                 self._apply_volume_changes()
 
-        while self._stopped:
-            ser.write('c'.encode('utf-8'))
+            ser.write(b'c')
+
 
     def _load_settings(self, reload=False):
         settings = None

@@ -34,6 +34,8 @@ void setup() {
   pinMode(row_2, OUTPUT);
   pinMode(row_3, OUTPUT);
 
+  pinMode(LED_BUILTIN, OUTPUT);
+
   Serial.begin(9600);
 }
 
@@ -70,12 +72,16 @@ void loop() {
   }
   else{
   themp = Serial.read();
+  Serial.println(themp);
     if(themp == "111"){  //check for o
       opend = true;
       Serial.println("opend");
     }
     else{
-      delay(10000);
+      delay(1000);
+    }
+    if(themp != "-1"){
+      digitalWrite(LED_BUILTIN, HIGH);
     }
   }
 }
