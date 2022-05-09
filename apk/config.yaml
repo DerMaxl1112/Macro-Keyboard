@@ -2,7 +2,10 @@
 # you can use 'master' to indicate the master channel or a list of process names to create a group
 slider_mapping:
   0: master
-  1:                         #currently nothing
+  1: 
+      - sotgame.exe
+      - celeste.exe
+      - gta5.exe
   2:
       - chrome.exe
       - msedge.exe           #Microsoft edge
@@ -17,18 +20,18 @@ slider_mapping:
       - netflix.exe
 
 button_mapping:
-  0: F1
-  1: F2
-  2: F3
-  3: F4
-  4: F5
-  5: F6
-  6: F7
-  7: F8
-  8: F9
-  9: F10
-  10: F11
-  11: F12
+  0: F13
+  1: F14
+  2: F15
+  3: F16
+  4: F17
+  5: F18
+  6: F19
+  7: F20
+  8: F21
+  9: F22
+  10: F23
+  11: F24
 
 # recommend to leave these setting at there default values
 process_refresh_frequency: 5

@@ -1,0 +1,1 @@
+powershell "$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\Start Menu\Programs\Startup\deej.lnk');$s.TargetPath='%~dp0\deej_run.vbs';$s.WorkingDirectory='%~dp0';$s.Save()"
