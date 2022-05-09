@@ -16,7 +16,7 @@ int row_1 = 12, row_2 = 11, row_3 = 10; // Switch rows
 bool is_pressed[NUM_SWITCHES]={false};
 bool any_pressed = false;
 
-bool opend = false;
+bool opend = false, send_switch = false;
 String themp;
 int count = 0;
 
@@ -52,14 +52,17 @@ void loop() {
       temp += switches[i];
       }
      if(temp<=1){
-       sendSwitchValues(); // Actually send data (all the time)
+      sendSwitchValues(); // Actually send data (all the time)
+      send_switch = true;
      }
      temp = 0;
   
 
     //Sliders
-    updateSliderValues();
-    sendSliderValues(); // Actually send data (all the time)
+    if(send_switch=false){
+      updateSliderValues();
+      sendSliderValues(); // Actually send data (all the time)
+    }
     
 
     themp = Serial.read();
