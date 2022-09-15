@@ -4,7 +4,7 @@
 #define MyAppName "deej"
 #define MyAppVersion "1.5"
 #define MyAppPublisher "Hug Schmiede"
-#define MyAppURL "https://www.example.com/"
+#define MyAppURL "https://github.com/DerMaxl1112/Macro-Keyboard"
 #define MyAppExeName "deej.exe"
 #define MyAppAssocName MyAppName + " File"
 #define MyAppAssocExt ".myp"
@@ -24,12 +24,12 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\{#MyAppName}
 ChangesAssociations=yes
 DisableProgramGroupPage=yes
-LicenseFile=D:\GitHub\Macro-Keyboard_build\apk\LICENSE.txt
+LicenseFile=D:\GitHub\Macro-Keyboard\build\apk\LICENSE.txt
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
-OutputDir=D:\GitHub\Macro-Keyboard_zusatz
+OutputDir=D:\GitHub\Macro-Keyboard\other files
 OutputBaseFilename=deej_setup
-SetupIconFile=D:\GitHub\Macro-Keyboard_build\apk\assets\logo.ico
+SetupIconFile=D:\GitHub\Macro-Keyboard\build\apk\assets\logo.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -42,13 +42,14 @@ Name: "german"; MessagesFile: "compiler:Languages\German.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "D:\GitHub\Macro-Keyboard_build\apk\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\GitHub\Macro-Keyboard_build\apk\config.yaml"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\GitHub\Macro-Keyboard_build\apk\LICENSE.txt"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\GitHub\Macro-Keyboard_build\apk\README.txt"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\GitHub\Macro-Keyboard_build\apk\arduino_client_sketch\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "D:\GitHub\Macro-Keyboard_build\apk\assets\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "D:\GitHub\Macro-Keyboard_build\apk\functions\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "D:\GitHub\Macro-Keyboard\build\apk\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\GitHub\Macro-Keyboard\build\apk\config.yaml"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\GitHub\Macro-Keyboard\build\apk\LICENSE.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\GitHub\Macro-Keyboard\build\apk\README.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\GitHub\Macro-Keyboard\build\apk\create_autostart.bat"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\GitHub\Macro-Keyboard\build\apk\delete_autostart.bat"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\GitHub\Macro-Keyboard\build\apk\arduino_client_sketch\*"; DestDir: "{app}\arduino_client_sketch"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "D:\GitHub\Macro-Keyboard\build\apk\assets\*"; DestDir: "{app}\assets"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
@@ -64,4 +65,8 @@ Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: de
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\create_autostart.bat"; Description: "Create autostart file"; Flags: postinstall runhidden
+
+[UninstallRun]
+Filename: "{app}\delete_autostart.bat"; Flags: runhidden
 
