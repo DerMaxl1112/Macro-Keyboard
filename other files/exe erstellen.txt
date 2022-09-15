@@ -1,0 +1,3 @@
+in cmd mit 'auto-py-to-exe' ausführen
+
+unter settings in Manually Provide Options '--hidden-import pkg_resources --hidden-import infi.systray' einfügen

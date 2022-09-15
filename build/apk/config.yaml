@@ -1,0 +1,42 @@
+# process names are case-insensitive
+# you can use 'master' to indicate the master channel or a list of process names to create a group
+slider_mapping:
+  0: master
+  1: 
+      - sotgame.exe
+      - celeste.exe
+      - gta5.exe
+      - factorio.exe
+  2:
+      - chrome.exe
+      - msedge.exe           #Microsoft edge
+  3: whatsapp.exe
+  4:
+      - discord.exe
+      - zoom.exe
+  5:
+      - spotify.exe
+      - twitchui.exe        #twitch client
+      - cr.winapp.exe       #crunchyroll
+      - netflix.exe
+
+button_mapping:
+  0: F13
+  1: F14
+  2: F15
+  3: F16
+  4: F17
+  5: F18
+  6: F19
+  7: F20
+  8: F21
+  9: F22
+  10: F23
+  11: F24
+
+# recommend to leave these setting at there default values
+process_refresh_frequency: 5
+
+# settings for connecting to the arduino board
+com_port: COM3          # Set to port to the port the keyboard is connected to
+baud_rate: 9600         # 9600 is set as default by arduino. Chanching not advised!

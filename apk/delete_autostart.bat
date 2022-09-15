@@ -1,1 +1,0 @@
-del "%userprofile%\Start Menu\Programs\Startup\deej.lnk"
